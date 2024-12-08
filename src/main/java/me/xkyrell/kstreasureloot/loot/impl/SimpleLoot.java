@@ -4,6 +4,7 @@ import lombok.*;
 import me.xkyrell.kstreasureloot.loot.*;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class SimpleLoot implements Loot {
     @NonNull
     private List<LootItem> items;
 
-    public SimpleLoot(@NonNull String name) {
-        this(name, null, null, new ArrayList<>());
+    public SimpleLoot(@NonNull String name, Player player) {
+        this(name, player.getWorld(), player.getLocation().getBlock().getBiome(), new ArrayList<>());
     }
 }
