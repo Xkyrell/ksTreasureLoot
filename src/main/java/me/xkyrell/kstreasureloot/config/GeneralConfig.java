@@ -112,4 +112,14 @@ public class GeneralConfig extends Config {
         lootSection.set("items", serializedItems);
         save();
     }
+
+    public void removeLoot(String lootName) {
+        ConfigurationSection customLootSection = getSource().getConfigurationSection("custom-loot");
+        if (customLootSection == null || !customLootSection.contains(lootName)) {
+            throw new IllegalArgumentException("Loot with name '" + lootName + "' does not exist!");
+        }
+
+        customLootSection.set(lootName, null);
+        save();
+    }
 }
