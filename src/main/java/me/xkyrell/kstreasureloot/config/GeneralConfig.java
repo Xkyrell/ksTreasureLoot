@@ -4,6 +4,7 @@ import lombok.NonNull;
 import me.xkyrell.kstreasureloot.loot.*;
 import me.xkyrell.kstreasureloot.loot.impl.SimpleLoot;
 import me.xkyrell.kstreasureloot.loot.service.LootService;
+import me.xkyrell.kstreasureloot.util.Biomes;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.configuration.ConfigurationSection;
@@ -47,7 +48,7 @@ public class GeneralConfig extends Config {
             }
 
             World world = loadWorld(lootSection.getString("world"));
-            Biome biome = loadBiome(lootSection.getString("biome"));
+            Biome biome = Biomes.loadBiome(lootSection.getString("biome"));
 
             List<LootItem> lootItems = loadItems(lootSection.getConfigurationSection("items"));
 
@@ -61,15 +62,6 @@ public class GeneralConfig extends Config {
             throw new IllegalArgumentException("World not found: " + worldName);
         }
         return world;
-    }
-
-    private Biome loadBiome(@NonNull String biomeName) {
-        try {
-            return Biome.valueOf(biomeName.toUpperCase());
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid biome name: " + biomeName, e);
-        }
     }
 
     private List<LootItem> loadItems(ConfigurationSection itemsSection) {
