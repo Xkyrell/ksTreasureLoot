@@ -3,7 +3,7 @@ package me.xkyrell.kstreasureloot;
 import lombok.RequiredArgsConstructor;
 import me.xkyrell.kstreasureloot.loot.Loot;
 import me.xkyrell.kstreasureloot.loot.LootItem;
-import me.xkyrell.kstreasureloot.loot.service.LootResolver;
+import me.xkyrell.kstreasureloot.loot.service.LootService;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,12 +16,12 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class TreasureLootListener implements Listener {
 
-    private final LootResolver resolver;
+    private final LootService lootService;
     private final Random random = new Random();
 
     @EventHandler(priority = EventPriority.LOW)
     public void onGenerate(LootGenerateEvent event) {
-        for (Loot loot : resolver.getLoot()) {
+        for (Loot loot : lootService.getResolver().getLoot()) {
             Location location = event.getLootContext().getLocation();
             if (!location.getWorld().equals(loot.getWorld())) {
                 continue;
